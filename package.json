@@ -1,0 +1,13 @@
+{
+  "name": "tips-podologia",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "sass:build": "sass scss/main.scss css/main.css --style=expanded",
+    "sass:watch": "sass --watch scss/main.scss css/main.css --style=expanded",
+    "sass:prod": "sass scss/main.scss css/main.css --style=compressed"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}

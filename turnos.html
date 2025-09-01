@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agenda de Turnos | TIPS Podología</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container">
+      <img src="medios/logo_tips.png" alt="Logo TIPS" class="logo" />
+      <h1>TIPS Podología</h1>
+    </div>
+  </header>
+
+  <!-- Navbar Bootstrap -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b689d6;">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Inicio</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html#nosotros">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#servicios">Patologías</a></li>
+          <li class="nav-item"><a class="nav-link active" href="turnos.html">Turnos</a></li>
+          <li class="nav-item"><a class="nav-link" href="nuestras-podologas.html">Profesionales</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Formulario -->
+  <div class="agenda-container my-5">
+    <h2>Agendá tu turno</h2>
+    <form id="turnoForm">
+      <label for="nombre">Nombre y Apellido</label>
+      <input type="text" id="nombre" required />
+
+      <label for="telefono">Teléfono o WhatsApp</label>
+      <input type="text" id="telefono" required />
+
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" required />
+
+      <label for="hora">Hora</label>
+      <select id="hora" required></select>
+
+      <label for="profesional">Profesional</label>
+      <select id="profesional" required>
+        <option value="virginia">María Virginia</option>
+        <option value="lourdes">Lourdes</option>
+        <option value="otro3">Profesional 3</option>
+        <option value="otro4">Profesional 4</option>
+      </select>
+
+      <p><strong>Para confirmar tu turno, debés abonar el 50% del valor del mismo.</strong></p>
+      <p>Monto total del turno: <strong>$20000</strong></p>
+      <p>Seña obligatoria: <strong>$10000</strong></p>
+      <p>Alias de pago: <strong>tips.mvm</strong></p>
+
+      <label>
+        <input type="checkbox" id="confirmacionPago" />
+        Confirmo que realicé el pago de la seña correspondiente.
+      </label>
+
+      <button type="submit" class="btn btn-primary mt-3">Reservar Turno</button>
+    </form>
+
+    <!-- Tabla de turnos responsive -->
+    <h3 class="mt-5">Turnos Reservados</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead style="background-color:#f2e6f7;">
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Profesional</th>
+            <th>Nombre</th>
+            <th>Contacto</th>
+          </tr>
+        </thead>
+        <tbody id="agendaBody"></tbody>
+      </table>
+    </div>
+
+    <button onclick="descargarExcel()" class="btn btn-success mt-3">Descargar Agenda en Excel</button>
+  </div>
+
+  <!-- Modal Bootstrap -->
+  <div class="modal fade" id="confirmacionModal" tabindex="-1" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#b689d6; color:white;">
+          <h5 class="modal-title" id="confirmacionModalLabel">Turno reservado con éxito</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          Tu turno fue reservado correctamente. Recibirás la confirmación a través de WhatsApp con tu profesional asignada.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 TIPS Podología · Todos los derechos reservados</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script>
+    const horariosDisponibles = [];
+    for (let i = 8; i <= 20; i++) {
+      horariosDisponibles.push(`${i.toString().padStart(2, '0')}:00`);
+    }
+
+    const horaSelect = document.getElementById('hora');
+    horariosDisponibles.forEach(h => {
+      const option = document.createElement('option');
+      option.value = h;
+      option.textContent = h;
+      horaSelect.appendChild(option);
+    });
+
+    const agenda = [];
+    const agendaBody = document.getElementById('agendaBody');
+    const turnoForm = document.getElementById('turnoForm');
+    const fechaInput = document.getElementById('fecha');
+    const hoy = new Date();
+    const tresMeses = new Date();
+    tresMeses.setMonth(tresMeses.getMonth() + 3);
+    fechaInput.min = hoy.toISOString().split('T')[0];
+    fechaInput.max = tresMeses.toISOString().split('T')[0];
+
+    fechaInput.addEventListener('input', () => {
+      const selectedDate = new Date(fechaInput.value);
+      const day = selectedDate.getDay();
+      if (day === 0 || day === 6) {
+        alert("Los turnos solo se reservan de lunes a viernes.");
+        fechaInput.value = "";
+      }
+    });
+
+    turnoForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const fecha = document.getElementById('fecha').value;
+      const hora = document.getElementById('hora').value;
+      const profesional = document.getElementById('profesional').value;
+      const checkboxPago = document.getElementById('confirmacionPago');
+
+      if (!checkboxPago.checked) {
+        alert("Debés confirmar que realizaste el pago de la seña para continuar.");
+        return;
+      }
+
+      if (!nombre || !telefono || !fecha || !hora || !profesional) return;
+
+      const yaReservado = agenda.some(t => t.fecha === fecha && t.hora === hora && t.profesional === profesional);
+      if (yaReservado) {
+        alert("Ese horario ya está reservado para este profesional.");
+        return;
+      }
+
+      const nuevoTurno = { nombre, telefono, fecha, hora, profesional };
+      agenda.push(nuevoTurno);
+      actualizarAgenda();
+
+      // Modal de confirmación
+      const modal = new bootstrap.Modal(document.getElementById('confirmacionModal'));
+      modal.show();
+
+      turnoForm.reset();
+    });
+
+    function actualizarAgenda() {
+      agendaBody.innerHTML = "";
+      agenda.forEach(t => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${t.fecha}</td>
+          <td>${t.hora}</td>
+          <td>${t.profesional}</td>
+          <td>${t.nombre}</td>
+          <td>${t.telefono}</td>
+        `;
+        agendaBody.appendChild(row);
+      });
+    }
+
+    function descargarExcel() {
+      const data = agenda.map(t => ({
+        Fecha: t.fecha,
+        Hora: t.hora,
+        Profesional: t.profesional,
+        Nombre: t.nombre,
+        Contacto: t.telefono
+      }));
+
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Agenda");
+
+      XLSX.writeFile(wb, "Agenda_Turnos_TIPS.xlsx");
+    }
+  </script>
+</body>
+</html>
+

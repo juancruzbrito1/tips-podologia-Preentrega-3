@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestras profesionales | TIPS Podología</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container">
+      <img src="medios/logo_tips.png" alt="Logo TIPS" class="logo" />
+      <h1>TIPS Podología</h1>
+    </div>
+  </header>
+
+  <!-- Navbar Bootstrap -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b689d6;">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Inicio</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html#nosotros">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#servicios">Patologías</a></li>
+          <li class="nav-item"><a class="nav-link" href="turnos.html">Turnos</a></li>
+          <li class="nav-item"><a class="nav-link active" href="nuestras-podologas.html">Profesionales</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido -->
+  <section class="container my-5">
+    <h2 class="text-center mb-4">Nuestras profesionales</h2>
+    <p class="text-center">Conocé al equipo de TIPS Podología, formado por técnicas y licenciadas especializadas en distintas áreas del cuidado del pie.</p>
+
+    <!-- Accordion Bootstrap -->
+    <div class="accordion" id="accordionProfesionales">
+      
+      <!-- Profesional 1 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" 
+                  aria-expanded="true" aria-controls="collapseOne">
+            María Virginia Morichetti - Técnica en Podología (MP 324)
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionProfesionales">
+          <div class="accordion-body">
+            <div class="profesional-card">
+              <img src="medios/Virginia_foto.jpeg" alt="María Virginia Morichetti">
+              <div>
+                <h3>María Virginia Morichetti</h3>
+                <p>Técnica en Podología - MP 324</p>
+                <p>Fundadora y Directora de “TIPS”. Técnica egresada de la Universidad Nacional del Litoral (FBCB), actualmente cursando la Licenciatura en Podología en la Universidad del Gran Rosario. Especialista en pie diabético, tratamientos ungueales, podología láser y más de 10 cursos de perfeccionamiento.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profesional 2 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" 
+                  aria-expanded="false" aria-controls="collapseTwo">
+            Lourdes Jaquelina Ledesma - Técnica en Podología (FBCB UNL)
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionProfesionales">
+          <div class="accordion-body">
+            <div class="profesional-card">
+              <img src="medios/Lourdes_foto.jpeg" alt="Lourdes Jaquelina Ledesma">
+              <div>
+                <h3>Lourdes Jaquelina Ledesma</h3>
+                <p>Técnica en Podología - FBCB UNL</p>
+                <p>Socia integrante de “TIPS”. Técnica en Podología (UNL) y Técnica Superior en Diagnóstico por Imágenes (CETED). Actualmente cursando la Licenciatura en Podología en la Universidad del Gran Rosario. Especializada en biomecánica, marcha y rehabilitación integral con enfoque holístico del paciente.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 TIPS Podología · Todos los derechos reservados</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

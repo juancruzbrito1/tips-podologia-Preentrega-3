@@ -1,0 +1,17 @@
+$color-principal: #5c2d91;
+$color-secundario: #b689d6;
+$color-fondo: #fef8ff;
+$color-oscuro: #222;
+
+$fuente-principal: 'Inter', sans-serif;
+
+$border-radius: 12px;
+$box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+// Breakpoints
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
